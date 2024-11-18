@@ -180,9 +180,12 @@ class _TpSubState extends State<TpSub> {
       elevation: 10.0,
       onPressed: _loadData,
       icon: Icon(Icons.update),
-      label: Text('Update'),
+      label: const Text(
+        'Update',
+        style: TextStyle(fontSize: 10.0),
+      ),
       foregroundColor: Colors.black,
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.deepPurple,
     );
   }
 
@@ -191,9 +194,12 @@ class _TpSubState extends State<TpSub> {
       elevation: 10.0,
       onPressed: _control,
       icon: Icon(Icons.control_point),
-      label: Text('Control'),
+      label: const Text(
+        'Control',
+        style: TextStyle(fontSize: 10.0),
+      ),
       foregroundColor: Colors.black,
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.deepPurple,
     );
   }
 
@@ -202,9 +208,12 @@ class _TpSubState extends State<TpSub> {
       elevation: 10.0,
       onPressed: _gemini,
       icon: Icon(Icons.lightbulb_outline),
-      label: Text('AI Response'),
+      label: const Text(
+        'AI Response',
+        style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+      ),
       foregroundColor: Colors.black,
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.deepPurple,
     );
   }
 }

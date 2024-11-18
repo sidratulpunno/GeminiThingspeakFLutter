@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:thingspeak/pages/tp_sub.dart';
 
-const apiKey = 'Gemini Api key'; // Replace with your actual API key
+const apiKey =
+    'AIzaSyDoE107-VUexohs5AvLoktkBAzLObP-nJ0'; // Replace with your actual API key
 
 class GenerativeAIScreen extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _GenerativeAIScreenState extends State<GenerativeAIScreen> {
     });
 
     final prompt =
-        'I am farming ${cropTextController.text}, humidity is $val1 and temperature is 50. Please give me some tips within 200 words.';
+        'I am farming ${cropTextController.text}, temperature is $val1 and humidity is $val2 and soil moisture is $val3 and water level is $val4 and mqtt value is $val5 . Please give me some tips within 300 words like what should i do and what pesticide or fertilizer i should use point by point and don\'t give my data and disclaimer back.';
     final content = [Content.text(prompt)];
 
     try {
@@ -61,7 +62,7 @@ class _GenerativeAIScreenState extends State<GenerativeAIScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Smart Farming Suggestions'),
-        backgroundColor: Colors.purple[600],
+        backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
       ),
       body: Padding(

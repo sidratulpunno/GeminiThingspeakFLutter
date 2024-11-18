@@ -36,7 +36,7 @@ class Heading extends StatelessWidget {
               style: TextStyle(
                 color: Colors.purple,
                 fontWeight: FontWeight.bold,
-                fontSize: 45,
+                fontSize: 35,
               ),
             ),
           ),
