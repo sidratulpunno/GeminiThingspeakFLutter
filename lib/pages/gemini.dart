@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:thingspeak/pages/tp_sub.dart';
+import 'package:thingspeak/valueState.dart';
 
 const apiKey =
     'AIzaSyDoE107-VUexohs5AvLoktkBAzLObP-nJ0'; // Replace with your actual API key
@@ -33,7 +33,7 @@ class _GenerativeAIScreenState extends State<GenerativeAIScreen> {
     });
 
     final prompt =
-        'I am farming ${cropTextController.text}, temperature is $val1 and humidity is $val2 and soil moisture is $val3 and water level is $val4 and mqtt value is $val5 . Please give me some tips within 300 words like what should i do and what pesticide or fertilizer i should use point by point and don\'t give my data and disclaimer back.';
+        'I am farming ${cropTextController.text}, temperature is ${ValueState.value[0]} celsius and humidity is ${ValueState.value[1]} and soil moisture is ${ValueState.value[2]} and water level is ${ValueState.value[3]} and mqtt value is ${ValueState.value[4]} .I am from Bangladesh.Please give me some tips within 300 words like what should i do and what pesticide or fertilizer i should use point by point and don\'t give my data and disclaimer back.';
     final content = [Content.text(prompt)];
 
     try {

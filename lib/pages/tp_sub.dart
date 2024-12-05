@@ -7,15 +7,7 @@ import 'package:thingspeak/util/data.dart';
 import 'package:thingspeak/util/storage.dart';
 import 'package:thingspeak/widgets/components.dart';
 
-List<String> value = [];
-String val0 = value[0];
-String val1 = value[1];
-String val2 = value[2];
-String val3 = value[3];
-String val4 = value[4];
-String val5 = value[5];
-String val6 = value[6];
-String val7 = value[7];
+import '../valueState.dart';
 
 class TpSub extends StatefulWidget {
   @override
@@ -90,7 +82,7 @@ class _TpSubState extends State<TpSub> {
   List<Widget> body() {
     List<Widget> components = [];
 
-    // Heading & ssub heading
+    // Heading & subheading
     components.add(SizedBox(height: 8.0));
     components.add(Heading(true));
 
@@ -101,13 +93,26 @@ class _TpSubState extends State<TpSub> {
       components.add(CardBuilder(dateLogo, 'Date', currentData.date));
       components.add(CardBuilder(timeLogo, 'Time', currentData.time));
 
-      // all data card
+      // All data card
       for (int i = 0; i < len && i < 8; i++) {
-        if (null != jsonResponse['channel'][Data.keys[i]]) {
+        if (jsonResponse['channel'][Data.keys[i]] != null) {
+          String displayValue =
+              jsonResponse['feeds'][0][Data.keys[i]].toString();
+
+          // For the last three fields, convert 1 to "ON" and 0 to "OFF"
+          if (i >= len - 3) {
+            displayValue = displayValue == '1'
+                ? 'ON'
+                : displayValue == '0'
+                    ? 'OFF'
+                    : displayValue;
+          }
+
           components.add(CardBuilder(
-              defaultLogo,
-              jsonResponse['channel'][Data.keys[i]],
-              jsonResponse['feeds'][0][Data.keys[i]]));
+            defaultLogo,
+            jsonResponse['channel'][Data.keys[i]],
+            displayValue,
+          ));
         }
       }
     } else {
@@ -151,16 +156,16 @@ class _TpSubState extends State<TpSub> {
             jsonResponse['feeds'][0]['created_at'].split('T')[1].split('Z')[0];
 
         currentData.setLoaded();
+        ValueState.value.clear();
 
         for (int i = 0; i < len && i < 8; i++) {
           // Check if the key exists in the jsonResponse['feeds'][0] object
           if (jsonResponse['feeds'][0].containsKey(Data.keys[i])) {
-            value.add(jsonResponse['feeds'][0][Data.keys[i]]);
-            print(value[i]);
-            print(jsonResponse);
+            ValueState.value.add(jsonResponse['feeds'][0][Data.keys[i]]);
+            print(ValueState.value[i]);
           } else {
             // Handle the case where the key doesn't exist
-            value.add("N/A"); // Or use another default value
+            ValueState.value.add("1"); // Or use another default value
           }
         }
       });

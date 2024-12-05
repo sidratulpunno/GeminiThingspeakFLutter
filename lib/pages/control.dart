@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:thingspeak/pages/tp_sub.dart';
+import 'package:thingspeak/valueState.dart';
 
 class ControlScreen extends StatefulWidget {
   @override
@@ -8,13 +8,15 @@ class ControlScreen extends StatefulWidget {
 }
 
 class _ControlScreenState extends State<ControlScreen> {
-  bool isLightOn = (val5 == '1') ? true : false;
+  bool isLightOn = (ValueState.value[5] == '1') ? true : false;
 
-  bool isFanOn = (val6 == '1') ? true : false;
-  bool isWaterPumpOn = (val7 == '1') ? true : false;
-  String light = val5;
-  String fan = val6;
-  String pump = val7;
+  bool isFanOn = (ValueState.value[6] == '1') ? true : false;
+  bool isWaterPumpOn = (ValueState.value[7] == '1') ? true : false;
+  String light = ValueState.value[5];
+
+  String fan = ValueState.value[6];
+
+  String pump = ValueState.value[7];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,10 @@ class _ControlScreenState extends State<ControlScreen> {
                   } else {
                     light = '0';
                   }
-                  postData(light, fan, pump);
+                  Future.delayed(Duration(seconds: 3), () {
+                    print("Executed after 3 seconds");
+                    postData(light, fan, pump);
+                  });
                 });
               }),
               SizedBox(height: 20),
@@ -60,7 +65,10 @@ class _ControlScreenState extends State<ControlScreen> {
                   } else {
                     fan = '0';
                   }
-                  postData(light, fan, pump);
+                  Future.delayed(Duration(seconds: 3), () {
+                    print("Executed after 3 seconds");
+                    postData(light, fan, pump);
+                  });
                 });
               }),
               SizedBox(height: 20),
@@ -73,7 +81,10 @@ class _ControlScreenState extends State<ControlScreen> {
                   } else {
                     pump = '0';
                   }
-                  postData(light, fan, pump);
+                  Future.delayed(Duration(seconds: 3), () {
+                    print("Executed after 3 seconds");
+                    postData(light, fan, pump);
+                  });
                 });
               }),
             ],
@@ -128,7 +139,7 @@ Future<void> postData(
     // Make the POST request with the field data and API key as query parameters
     final response = await http.post(
       Uri.parse(
-          '$url?api_key=N1EZQ2BAM3K85JRI&field1=$val0&field2=$val1&field3=$val2&field4=$val3&field5=$val4&field6=$field6Value&field7=$field7Value&field8=$field8Value'),
+          '$url?api_key=N1EZQ2BAM3K85JRI&field1=${ValueState.value[0]}&field2=${ValueState.value[1]}&field3=${ValueState.value[2]}&field4=${ValueState.value[3]}&field5=${ValueState.value[4]}&field6=$field6Value&field7=$field7Value&field8=$field8Value'),
     );
 
     // Check the response status
